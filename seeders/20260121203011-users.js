@@ -38,7 +38,7 @@ module.exports = {
         email: "second@user.com",
         password: userTwoPasswordHash,
         type: "user",
-        active: false,
+        active: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

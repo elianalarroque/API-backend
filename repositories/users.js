@@ -3,7 +3,12 @@ const { users, teachers } = require("../models");
 
 //function aux para saber si existe o no user
 async function userFinder(id) {
-  const user = await users.findByPk(id);
+  const user = await users.findByPk(id, {
+    include: {
+      model: teachers,
+      as: "teacher",
+    },
+  });
   if (!user) {
     const err = new Error("User not found");
     err.status = 404;
@@ -15,6 +20,12 @@ async function userFinder(id) {
 module.exports = {
   getAll() {
     return users.findAll({
+       include: [
+      {
+        model: teachers,
+        as: "teacher",
+      },
+    ],
       //no muestro password por el defaultScope,
     });
   },
@@ -68,15 +79,12 @@ module.exports = {
 
   async getActiveStatus(id) {
     const user = await userFinder(id);
-    return {active: user.active};
+    return { active: user.active };
   },
 
   async activateUser(id) {
-    const user =await userFinder(id);
-    await user.update({active: true});
+    const user = await userFinder(id);
+    await user.update({ active: true });
     return user.reload();
-  }
+  },
 };
-
-
-

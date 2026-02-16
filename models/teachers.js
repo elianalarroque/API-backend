@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // relacion 1:1 con user
       this.belongsTo(models.users, {
-        foreignKey: "user_id"
+        foreignKey: "user_id",
+        as: "user"
       });
       //relacion 1:n con students
       this.hasMany(models.students, {

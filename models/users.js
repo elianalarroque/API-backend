@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // relacion 1:1 con teacher
       this.hasOne(models.teachers, {
-        foreignKey: "user_id"
+        foreignKey: "user_id",
+        as: "teacher",
       });
     }
   }

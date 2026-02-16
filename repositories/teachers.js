@@ -6,6 +6,7 @@ async function teacherFinder(id) {
     include: [
       {
         model: users,
+         as: "user",
         attributes: ["id", "email", "type", "active"],
       },
     ],
@@ -21,7 +22,7 @@ async function teacherFinder(id) {
 module.exports = {
   getAll() {
     return teachers.findAll({
-      include: [{ model: users, attributes: ["email", "type", "active"] }],
+      include: [{ model: users,  as: "user", attributes: ["email", "type", "active"] }],
     });
   },
   async getById(id) {
