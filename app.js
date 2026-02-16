@@ -5,11 +5,8 @@ const cors = require("cors");
 const users_router = require("./routes/api-users");
 const teachers_router = require("./routes/api-teachers");
 const students_router = require("./routes/api-students");
-const login_router = require("./routes/login");
-const home_router = require("./routes/home");
-const usersForAdmin = require("./routes/users");
+
 const token_router = require("./routes/api-token");
-const logout_router = require("./routes/logout");
 
 const app = express();
 const port = 3001;
@@ -27,17 +24,12 @@ app.use(
   }),
 );
 
-
 app.use("/api/users", users_router);
 app.use("/api/teachers", teachers_router);
 app.use("/api/students", students_router);
-app.use("/login", login_router);
-app.use("/home", home_router);
-app.use("/users", usersForAdmin);
 app.use("/api/token", token_router);
-app.use("/", logout_router);
-app.get("/", (req, res) => res.redirect("/login"));
 
+app.get("/", (req, res) => res.redirect("/login"));
 
 app.use((err, req, res, next) => {
   console.log(err);
@@ -46,7 +38,6 @@ app.use((err, req, res, next) => {
     message: err.message || "Internal server error",
   });
 });
-
 
 // Creo el servidor en el puerto ${port}
 app.listen(port, () => {
